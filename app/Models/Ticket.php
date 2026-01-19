@@ -32,4 +32,12 @@ class Ticket extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * Get the comments for the ticket.
+     */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

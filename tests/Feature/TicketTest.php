@@ -72,3 +72,19 @@ test('users can update their own tickets', function () {
         'title' => 'New Updated Title'
     ]);
 });
+
+test('user can comment on their own ticket', function () {
+    $user = \App\Models\User::factory()->create();
+    $ticket = \App\Models\Ticket::factory()->create(['user_id' => $user->id]);
+
+    $response = $this->actingAs($user)
+        ->postJson("/api/tickets/{$ticket->id}/comments", [
+            'body' => 'This is a test comment'
+        ]);
+
+    $response->assertStatus(201);
+    $this->assertDatabaseHas('comments', [
+        'body' => 'This is a test comment',
+        'ticket_id' => $ticket->id
+    ]);
+});

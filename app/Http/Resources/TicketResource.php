@@ -19,8 +19,8 @@ class TicketResource extends JsonResource
             'title' => $this->title,
             'description' => $this->description,
             'status' => ucfirst($this->status),
-            'priority' => ucfirst($this->priority),
             'category' => $this->category->name,
+            'comments' => CommentResource::collection($this->whenLoaded('comments')),
             'created_at' => $this->created_at->format('Y-m-d H:i:s'),
         ];
     }
