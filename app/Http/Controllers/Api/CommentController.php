@@ -16,12 +16,13 @@ class CommentController extends Controller
 
         $validated = $request->validate([
             'body' => 'required|string|min:3',
+            'is_internal' => 'sometimes|boolean', // Added this
         ]);
 
         $comment = $ticket->comments()->create([
             'body' => $validated['body'],
             'user_id' => $request->user()->id,
-            'is_internal' => false,
+            'is_internal' => $request->user()->is_agent && ($request->is_internal ?? false),
         ]);
 
         return new CommentResource($comment);

@@ -14,6 +14,10 @@ class CommentResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        if ($this->is_internal && !$request->user()?->is_agent) {
+            return [];
+        }
+
         return [
             'id' => $this->id,
             'body' => $this->body,

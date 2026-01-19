@@ -88,3 +88,20 @@ test('user can comment on their own ticket', function () {
         'ticket_id' => $ticket->id
     ]);
 });
+
+test('regular users cannot post internal comments', function () {
+    $user = \App\Models\User::factory()->create(['is_agent' => false]);
+    $ticket = \App\Models\Ticket::factory()->create(['user_id' => $user->id]);
+
+    $response = $this->actingAs($user)
+        ->postJson("/api/tickets/{$ticket->id}/comments", [
+            'body' => 'I am trying to be sneaky',
+            'is_internal' => true
+        ]);
+
+    // The comment should be created, but is_internal MUST be false
+    $this->assertDatabaseHas('comments', [
+        'body' => 'I am trying to be sneaky',
+        'is_internal' => false
+    ]);
+});
