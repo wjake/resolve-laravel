@@ -31,6 +31,27 @@ Resolve is a help desk support system built with Laravel 11. It includes a full 
 
 ## Setup
 
+### Option 1: Using Herd
+
+1. Install [Herd](https://herd.laravel.com/) if you haven't already
+2. Clone or place the project in Herd's projects directory
+3. Create environment file
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+4. Run migrations and seed demo data
+
+```bash
+php artisan migrate --seed
+```
+
+5. The app will automatically be available at `https://resolve.test`
+
+### Option 2: Manual Setup
+
 1. Install dependencies
 
 ```bash
@@ -56,7 +77,7 @@ php artisan migrate --seed
 php artisan serve
 ```
 
-The app will be available at http://127.0.0.1:8000.
+5. The app will be available at `http://127.0.0.1:8000`
 
 ## Demo Logins
 
