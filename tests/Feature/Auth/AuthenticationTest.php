@@ -2,10 +2,10 @@
 
 use App\Models\User;
 
-test('users can authenticate using the login screen', function () {
+test('users can authenticate using the login screen via API', function () {
     $user = User::factory()->create();
 
-    $response = $this->post('/login', [
+    $response = $this->postJson('/login', [
         'email' => $user->email,
         'password' => 'password',
     ]);
@@ -25,10 +25,10 @@ test('users can not authenticate with invalid password', function () {
     $this->assertGuest();
 });
 
-test('users can logout', function () {
+test('users can logout via API', function () {
     $user = User::factory()->create();
 
-    $response = $this->actingAs($user)->post('/logout');
+    $response = $this->actingAs($user)->postJson('/logout');
 
     $this->assertGuest();
     $response->assertNoContent();

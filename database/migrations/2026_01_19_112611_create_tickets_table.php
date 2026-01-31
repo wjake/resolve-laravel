@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tickets', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             // The user who created the ticket
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
 
@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('description');
             
             // Use enums for status and priority to keep data clean
-            $table->enum('status', ['open', 'pending', 'resolved', 'closed'])->default('open');
+            $table->enum('status', ['open', 'in_progress', 'resolved', 'closed'])->default('open');
             $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
             
             $table->timestamps();

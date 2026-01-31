@@ -1,27 +1,71 @@
-# Resolve API - Help Desk Support System
+# Resolve - Help Desk Support System
 
-Resolve API is a high-performance, headless Help Desk backend built with Laravel 12. It provides a robust foundation for managing support tickets, categorizing issues, and facilitating secure communication between customers and support agents.
+Resolve is a help desk support system built with Laravel 11. It includes a full web UI and an API for managing tickets, categories, and agent collaboration.
 
 
 
 ## Key Features
 
--   **Headless Architecture:** Designed specifically as an API-first application using Laravel Sanctum for secure, token-based authentication.
--   **Ticket Management:** Full CRUD operations for support tickets, including status tracking (Open, Pending, Resolved) and priority levels.
--   **Smart Categorization:** Relational database structure linking tickets to reusable categories with SEO-friendly slugs.
--   **Tiered Communication:** A nested comment system supporting "Internal Notes" visible only to staff/agents.
--   **Security First:** Strict resource protection using Laravel Policies—users can only access their own data.
--   **Performance Optimized:** Implements Eager Loading to solve N+1 query issues and API Resources for clean JSON transformations.
+-   **Web UI and API:** Web experience for agents and users plus a REST API for integrations.
+-   **Ticket Management:** Full CRUD for support tickets with status and priority.
+-   **Ticket Assignment:** Agents can assign tickets to themselves and see assignment status in the UI.
+-   **Agent Workflow:** Agents can create tickets on behalf of users.
+-   **Filters and Tabs:** Status tabs, category filter, and an Assigned to Me filter.
+-   **Comments and Internal Notes:** Comments support internal notes visible only to agents.
+-   **Dark Mode:** Theme toggle with persistence for web pages including auth, dashboard, and tickets.
+-   **Responsive UI:** Mobile navigation and responsive filters for small screens.
+-   **Security First:** Policy-based authorization ensures users only access their own data.
+-   **Performance Optimized:** Uses eager loading to avoid N+1 queries and API Resources for clean JSON.
 
 ---
 
 ## Technical Stack
 
--   **Framework:** Laravel 12
--   **Authentication:** Laravel Sanctum (Breeze API Stack)
--   **Database:** SQLite (Default for portability)
--   **Testing:** Pest PHP (Feature & Unit testing)
+-   **Framework:** Laravel 11
+-   **Authentication:** Laravel Sanctum
+-   **Database:** SQLite (default for portability)
+-   **Testing:** Pest PHP (feature and unit testing)
 -   **Architecture:** RESTful API with JSON Resources
+
+---
+
+## Setup
+
+1. Install dependencies
+
+```bash
+composer install
+```
+
+2. Create environment file
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+3. Run migrations and seed demo data
+
+```bash
+php artisan migrate --seed
+```
+
+4. Start the app
+
+```bash
+php artisan serve
+```
+
+The app will be available at http://127.0.0.1:8000.
+
+## Demo Logins
+
+Use these accounts after running the database seeder:
+
+-   **Admin/Agent:** admin@resolve.test
+-   **User:** demo@resolve.test
+
+All demo accounts use the password: password
 
 ---
 

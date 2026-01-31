@@ -21,7 +21,7 @@ class TicketPolicy
      */
     public function view(User $user, Ticket $ticket): bool
     {
-        return $user->id === $ticket->user_id;
+        return $user->is_agent || $user->id === $ticket->user_id;
     }
 
     /**
@@ -37,7 +37,7 @@ class TicketPolicy
      */
     public function update(User $user, Ticket $ticket): bool
     {
-        return $user->id === $ticket->user_id;
+        return (bool) $user->is_agent;
     }
 
     /**
@@ -45,7 +45,15 @@ class TicketPolicy
      */
     public function delete(User $user, Ticket $ticket): bool
     {
-        return false;
+        return (bool) $user->is_agent;
+    }
+
+    /**
+     * Determine whether the user can assign the model to themselves.
+     */
+    public function assign(User $user, Ticket $ticket): bool
+    {
+        return (bool) $user->is_agent && $ticket->assigned_to === null;
     }
 
     /**

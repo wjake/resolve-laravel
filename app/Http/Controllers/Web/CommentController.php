@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ticket;
-use App\Http\Resources\CommentResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -19,12 +18,13 @@ class CommentController extends Controller
             'is_internal' => 'sometimes|boolean',
         ]);
 
-        $comment = $ticket->comments()->create([
+        $ticket->comments()->create([
             'body' => $validated['body'],
             'user_id' => $request->user()->id,
             'is_internal' => $request->user()->is_agent && ($request->is_internal ?? false),
         ]);
 
-        return new CommentResource($comment);
+        return redirect()->route('web.tickets.show', $ticket)
+            ->with('success', 'Comment added successfully!');
     }
 }

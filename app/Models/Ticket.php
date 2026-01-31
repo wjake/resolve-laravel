@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
-    use HasFactory;
+    use HasFactory, HasUuids;
 
     protected $fillable = [
         'category_id',
@@ -15,6 +16,7 @@ class Ticket extends Model
         'description',
         'priority',
         'status',
+        'assigned_to',
     ];
 
     /**
@@ -31,6 +33,14 @@ class Ticket extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the agent that this ticket is assigned to.
+     */
+    public function assignedAgent()
+    {
+        return $this->belongsTo(User::class, 'assigned_to');
     }
 
     /**

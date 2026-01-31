@@ -17,7 +17,10 @@ class CommentFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => \App\Models\User::factory(),
+            'ticket_id' => \App\Models\Ticket::factory(),
+            'body' => $this->faker->paragraph(),
+            'is_internal' => false,
         ];
     }
 }

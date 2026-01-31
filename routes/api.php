@@ -8,11 +8,9 @@ use App\Http\Controllers\Api\CommentController;
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::apiResource('tickets', TicketController::class);
+    Route::post('tickets/{ticket}/comments', [CommentController::class, 'store']);
 });
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::post('tickets/{ticket}/comments', [CommentController::class, 'store'])
-    ->middleware('auth:sanctum');
