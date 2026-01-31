@@ -2,7 +2,7 @@
 
 Resolve is a help desk support system built with Laravel 11. It includes a full web UI and an API for managing tickets, categories, and agent collaboration.
 
-
+![alt text](screenshot.png)
 
 ## Key Features
 
